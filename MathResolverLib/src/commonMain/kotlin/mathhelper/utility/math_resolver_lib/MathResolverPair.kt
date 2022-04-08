@@ -4,7 +4,8 @@ import mathhelper.twf.expressiontree.ExpressionNode
 
 data class NodeWithStringCoords(
     val node: ExpressionNode,
-    val coords: HashMap<Int, Pair<Int, Int>>
+    val lt: Point,
+    val rb: Point
 )
 
 class MathResolverPair(val tree: MathResolverNodeBase?, val matrix: ArrayList<String>) {
@@ -14,11 +15,11 @@ class MathResolverPair(val tree: MathResolverNodeBase?, val matrix: ArrayList<St
         if (tree != null ) {
             if (insideBox(x, y, tree.leftTop, tree.rightBottom)) {
                 val mathNode = getNode(tree, x, y) ?: tree
-                val coords = hashMapOf<Int, Pair<Int, Int>>()
+                /*val coords = hashMapOf<Int, Pair<Int, Int>>()
                 for (i in mathNode.leftTop.y..mathNode.rightBottom.y) {
                     coords[i] = Pair(mathNode.leftTop.x, mathNode.rightBottom.x)
-                }
-                return NodeWithStringCoords(mathNode.origin, coords)
+                }*/
+                return NodeWithStringCoords(mathNode.origin, mathNode.leftTop, mathNode.rightBottom)
             }
         }
         return null
