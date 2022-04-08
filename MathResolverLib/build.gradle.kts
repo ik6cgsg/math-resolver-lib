@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.6.10"
     kotlin("native.cocoapods")
     id("com.android.library")
 }
@@ -7,6 +8,11 @@ plugins {
 version = "1.0"
 
 kotlin {
+    js {
+        browser()
+        binaries.executable()
+    }
+
     android()
     iosX64()
     iosArm64()
@@ -24,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.beust:klaxon:5.5")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
             }
         }
         val commonTest by getting {
@@ -33,7 +39,9 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
