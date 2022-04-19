@@ -6,6 +6,7 @@ class DefaultRulePacks {
                 DefaultCombinatoricsRulePacks.get() +
                 DefaultComplexRulePacks.get() +
                 LogicRulePacks.get() +
+                SetRulePacks.get() +
                 DefaultPhysicsRulePacks.get()
 
         val defaultRulePacksMap = defaultRulePacks.associateBy { it.code!! }

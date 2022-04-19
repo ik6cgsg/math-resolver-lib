@@ -46,6 +46,8 @@ enum class TaskTagCode(val code: String,
     LOGARITHM("Logarithm", "Logarithm", "Логарифм"),
 
 
+    SET("Set", "Set Theory", "Теория множеств"),
+
     LOGIC("Logic", "Logic", "Логика"),
 
     NORMAL_FORMS("NormalForms", "Normal Forms", "Нормальные формы"),
@@ -64,6 +66,7 @@ enum class TaskSetTagCode(val code: String,
                           val descriptionRu: String = nameRu) {
     TRIGONOMETRY("Trigonometry", "Trigonometry", "Тригонометрия"),
     LOGIC("Logic", "Logic", "Логика"),
+    SET("Set", "Set Theory", "Теория множеств"),
     COMBINATORICS("Combinatorics", "Combinatorics", "Комбинаторика"),
 
     NORMAL_FORMS("NormalForms", "Normal Forms", "Нормальные формы"),

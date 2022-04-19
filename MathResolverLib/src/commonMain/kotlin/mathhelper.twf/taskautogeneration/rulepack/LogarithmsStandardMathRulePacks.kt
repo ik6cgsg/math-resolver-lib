@@ -4,6 +4,9 @@ import mathhelper.twf.config.RuleITR
 import mathhelper.twf.config.RulePackITR
 import mathhelper.twf.config.RulePackLinkITR
 
+/**
+ * Custom rule pack with customized weights for logarithms task autogeneration
+ */
 class LogarithmsStandardMathRulePacks {
         companion object {
                 val defaultStandardMathRulePacks = listOf(

@@ -501,17 +501,31 @@ class ExpressionComparator(
                         listOf<SubstitutionPlace>()
                     }
             val bitMaskCount = 1 shl substitutionPlaces.size
-            if (bitMaskCount * transformations.size > maxBustCount) {
+            if (substitutionPlaces.size * 2 > Int.SIZE_BITS || bitMaskCount > maxBustCount || // to avoid overflow
+                    bitMaskCount * transformations.size > maxBustCount) {
                 transformation.applySubstitution(substitutionPlaces, this)
                 if (compareWithTreeTransformationRulesInternal(l, r, transformations, maxTransformationWeight - transformation.weight,
-                                maxBustCount, minTransformationWeight, expressionChainComparisonType, sortOperands))
+                                maxBustCount, minTransformationWeight, expressionChainComparisonType, sortOperands)) {
                     return true
+                }
+                if (substitutionPlaces.size > 1) {
+                    var bitMask = 1
+                    while (bitMask < bitMaskCount) {
+                        transformation.applySubstitutionByBitMask(substitutionPlaces, bitMask)
+                        if (compareWithTreeTransformationRulesInternal(l.clone(), r.clone(), transformations, maxTransformationWeight - transformation.weight,
+                                        maxBustCount, minTransformationWeight, expressionChainComparisonType, sortOperands)) {
+                            return true
+                        }
+                        bitMask = bitMask shl 1
+                    }
+                }
             } else {
                 for (bitMask in 1 until bitMaskCount) {
                     transformation.applySubstitutionByBitMask(substitutionPlaces, bitMask)
                     if (compareWithTreeTransformationRulesInternal(l.clone(), r.clone(), transformations, maxTransformationWeight - transformation.weight,
-                                    maxBustCount, minTransformationWeight, expressionChainComparisonType, sortOperands))
+                                    maxBustCount, minTransformationWeight, expressionChainComparisonType, sortOperands)) {
                         return true
+                    }
                 }
             }
         }

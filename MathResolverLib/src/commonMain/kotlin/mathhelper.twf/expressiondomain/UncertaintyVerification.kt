@@ -3,6 +3,15 @@ package mathhelper.twf.expressiondomain
 import mathhelper.twf.config.ComparisonType
 import mathhelper.twf.expressiontree.*
 
+/**
+ * Detects uncertainties of following types:
+ * - log(arg, base) | base < 0 or base == 1 or arg < 0
+ * - a / 0
+ * - 0 ^ 0
+ * - 0 ^ inf
+ * - 0 * 0
+ * - x * inf
+ */
 fun ExpressionNode.containsUncertainties(cmp: ExpressionComparator): Boolean {
 
     // check log/ln conditions (base > 0, base != 1, arg > 0)

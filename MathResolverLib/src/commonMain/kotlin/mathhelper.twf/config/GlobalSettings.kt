@@ -5,6 +5,7 @@ import mathhelper.twf.api.structureStringToExpression
 import mathhelper.twf.api.structureStringToString
 import mathhelper.twf.api.structureStringToTexString
 import mathhelper.twf.defaultcontent.TaskTagCode
+import mathhelper.twf.defaultcontent.defaultrulepacks.autogeneration.RuleTag
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.twf.expressiontree.ExpressionStructureConditionConstructor
 import mathhelper.twf.expressiontree.ExpressionSubstitution
@@ -36,7 +37,8 @@ data class RuleITR(
         val normalizationType: String? = null, // the type of sorting of variables when comparing expressions
         val weight: Double? = null, // the complexity of the rule for the learner, there is a limit on the maximum weight of the rules
         val weightInTaskAutoGeneration: Double? = null, // proportional to the probability of choosing a rule when auto-generating a task
-        val useWhenPostprocessGeneratedExpression: Boolean = false // used by autogenerator of tasks. If value is `true`, the rule can be applied to generated task in order to remove some useless defects like -(-(-(-x))) -> x
+        val useWhenPostprocessGeneratedExpression: Boolean = false, // used by autogenerator of tasks. If value is `true`, the rule can be applied to generated task in order to remove some useless defects like -(-(-(-x))) -> x
+        val tagsForTaskGenerator: List<RuleTag> = listOf() // for filtering rules when user configures task generator on UI
 ) {
     init {
         if (code.isNullOrBlank() && leftStructureString?.isNotBlank() == true && rightStructureString?.isNotBlank() == true) {

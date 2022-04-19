@@ -41,31 +41,38 @@ fun dropPerformedTexBrushing (string: String): String {
     return result
 }
 
+fun StringBuilder.addWithSpaceIfNeed (string: String) {
+    if (this.isNotBlank() && string.firstOrNull()?.isLetterOrDigitOrUnderscore() == true) {
+        this.append(" ") // to avoid replacements like '\neg\textcolor{red}{A\wedge A\vee B=}' -> '\negA\wedge A\vee B=' where 'negA' leads to error
+    }
+    this.append(string)
+}
+
 fun dropPerformedTexBrushingInternal (string: String): String {
     val result = StringBuilder()
     var currentPosition = 0
     while (currentPosition < string.length) {
         val index = string.findAnyOf(listOf("\\textcolor{"), currentPosition)
         if (index != null){
-            result.append(string.substring(currentPosition, index.first))
+            result.addWithSpaceIfNeed(string.substring(currentPosition, index.first))
             currentPosition = index.first + index.second.length
             currentPosition = skipFromRemainingExpressionWhile({ it != '}' }, string, currentPosition) + 1
             if (currentPosition < string.length && string[currentPosition] == '{') {
                 currentPosition++
                 val newCurrentPosition = skipFromRemainingExpressionWhileClosingBracketNotFound("}", "{", string, currentPosition)
-                result.append(string.substring(currentPosition, newCurrentPosition))
+                result.addWithSpaceIfNeed(string.substring(currentPosition, newCurrentPosition))
                 currentPosition = newCurrentPosition + 1
             }
         } else {
             val underlineIndex = string.findAnyOf(listOf("\\underline{"), currentPosition)
             if (underlineIndex != null) {
-                result.append(string.substring(currentPosition, underlineIndex.first))
+                result.addWithSpaceIfNeed(string.substring(currentPosition, underlineIndex.first))
                 currentPosition = underlineIndex.first + underlineIndex.second.length
                 val newCurrentPosition = skipFromRemainingExpressionWhileClosingBracketNotFound("}", "{", string, currentPosition)
-                result.append(string.substring(currentPosition, newCurrentPosition))
+                result.addWithSpaceIfNeed(string.substring(currentPosition, newCurrentPosition))
                 currentPosition = newCurrentPosition + 1
             } else {
-                result.append(string.substring(currentPosition))
+                result.addWithSpaceIfNeed(string.substring(currentPosition))
                 break
             }
         }

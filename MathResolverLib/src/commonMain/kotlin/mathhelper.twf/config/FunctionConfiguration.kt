@@ -291,6 +291,8 @@ class FunctionConfiguration(
             FunctionStringDefinition(functionPropertiesByName["xor_-1"]!!, StringDefinitionType.BINARY_OPERATION, "^", filter = "setTheory"),
             FunctionStringDefinition(functionPropertiesByName["xor_-1"]!!, StringDefinitionType.BINARY_OPERATION, "&#x2295"),
             FunctionStringDefinition(functionPropertiesByName["xor_-1"]!!, StringDefinitionType.BINARY_OPERATION, "\\oplus"),
+            FunctionStringDefinition(functionPropertiesByName["alleq_-1"]!!, StringDefinitionType.BINARY_OPERATION, "&#x2261"),
+            FunctionStringDefinition(functionPropertiesByName["alleq_-1"]!!, StringDefinitionType.BINARY_OPERATION, "\\equiv"),
             FunctionStringDefinition(functionPropertiesByName["not_1"]!!, StringDefinitionType.UNARY_LEFT_OPERATION, "&#xAC"),
             FunctionStringDefinition(functionPropertiesByName["not_1"]!!, StringDefinitionType.UNARY_LEFT_OPERATION, "\\neg"),
             FunctionStringDefinition(functionPropertiesByName["not_1"]!!, StringDefinitionType.UNARY_LEFT_OPERATION, "!", filter = "setTheory"),

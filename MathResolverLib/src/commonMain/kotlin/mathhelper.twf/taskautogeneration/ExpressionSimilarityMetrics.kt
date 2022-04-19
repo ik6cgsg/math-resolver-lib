@@ -73,6 +73,7 @@ val functionsOnlyInRight = object : ExpressionSimilarityMetric {
     }
 }
 
+// Упрощенная метрика - подсчитывает симметрическую разность переменных и функций в выражениях
 val simplifiedDisparityMetric = CompoundSimilarityMetric(listOf(
     variableOnlyInLeft,
     variableOnlyInRight,
@@ -80,8 +81,13 @@ val simplifiedDisparityMetric = CompoundSimilarityMetric(listOf(
     functionsOnlyInRight
 ))
 
-val disparityMatrixMetric = DisparityMatrixMetric(1);
+val disparityMatrixMetric = DisparityMatrixMetric(1)
 
+/**
+ * Disparity matrix metric with minimal subexpression depth limit
+ *
+ * @param minSubtreeDepth - minimal subexpression depth limit
+ */
 class DisparityMatrixMetric(private val minSubtreeDepth: Int = 3): ExpressionSimilarityMetric {
     override fun invoke(lhs: ExpressionNode, rhs: ExpressionNode): Double {
         val normalizedLhs = lhs.cloneWithNormalization(sorted = true).children.first()
@@ -109,6 +115,9 @@ class DisparityMatrixMetric(private val minSubtreeDepth: Int = 3): ExpressionSim
 
 fun ExpressionNode.isLeafNode() = children.isEmpty()
 
+/**
+ * Returns list of non-leaf (numbers, variables, etc.) subexpressions
+ */
 fun ExpressionNode.getNonLeafSubexpressions(): List<ExpressionNode> {
     if (getDepth() <= 2)
         return listOf(this)
@@ -116,6 +125,13 @@ fun ExpressionNode.getNonLeafSubexpressions(): List<ExpressionNode> {
     return listOf(this) + children.flatMap { it.getNonLeafSubexpressions() }
 }
 
+/**
+ * Computes distance to other expressions
+ *
+ * @param expressions expressions, the distance to which is calculated
+ * @param metric metric function
+ * @param selector aggregation function to transform vector of distance into scalar
+ */
 fun ExpressionNode.distanceTo(
     expressions: List<ExpressionNode>,
     metric: ExpressionSimilarityMetric = disparityMatrixMetric,

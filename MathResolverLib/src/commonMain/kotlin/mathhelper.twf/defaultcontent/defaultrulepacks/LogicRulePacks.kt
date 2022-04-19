@@ -81,7 +81,12 @@ class LogicRulePacks {
                                         RuleITR(leftStructureString = "(A)", rightStructureString = "(xor(A;0))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = true, priority = 91, code = ""),
                                         RuleITR(leftStructureString = "(A)", rightStructureString = "(alleq(1;A))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = true, priority = 91, code = ""),
                                         RuleITR(leftStructureString = "(not(A))", rightStructureString = "(xor(A;1))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = true, priority = 91, code = ""),
-                                        RuleITR(leftStructureString = "(not(A))", rightStructureString = "(alleq(0;A))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = true, priority = 91, code = "")
+                                        RuleITR(leftStructureString = "(not(A))", rightStructureString = "(alleq(0;A))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = true, priority = 91, code = ""),
+
+                                        RuleITR(leftStructureString = "(xor(A;B))", rightStructureString = "(not(alleq(A;B)))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = false, priority = 5, code = ""),
+                                        RuleITR(leftStructureString = "(alleq(A;B))", rightStructureString = "(not(xor(A;B)))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = false, priority = 5, code = ""),
+                                        RuleITR(leftStructureString = "(not(alleq(A;B)))", rightStructureString = "(xor(A;B))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = false, priority = 5, code = ""),
+                                        RuleITR(leftStructureString = "(not(xor(A;B)))", rightStructureString = "(alleq(A;B))", basedOnTaskContext = false, matchJumbledAndNested = false, simpleAdditional = false, isExtending = false, priority = 5, code = "")
                                 )
                         ),
                         RulePackITR(

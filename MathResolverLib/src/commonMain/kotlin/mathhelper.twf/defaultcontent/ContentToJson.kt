@@ -70,7 +70,6 @@ data class TaskFrontInput(
         val goalType: String? = null,
         val goalExpression: ExpressionFrontInput? = null,
         val goalPattern: String? = null,
-        val goalNumberProperty: Int? = null,
         val otherGoalData: Map<String, Any>? = null,
 
         val rulePacks: List<String>? = null, //val rulePacks: List<RulePackLinkFrontInput>? = null,
@@ -103,7 +102,7 @@ fun TaskITR.toTaskFrontInput() = TaskFrontInput(taskCreationType ?: "manual", co
         goalType,
         if (goalExpressionStructureString.isNullOrBlank()) null else ExpressionFrontInput(goalExpressionStructureString, "STRUCTURE_STRING"),
         goalPattern,
-        goalNumberProperty, otherGoalData,
+        otherGoalData,
         rulePacks?.map { it.toRulePackLinkFrontInput() },
         rules?.map { it.toRuleFrontInput() } ?: listOf(),
         stepsNumber, time, difficulty,

@@ -10,8 +10,8 @@ class LogicTaskSets {
     companion object {
         val logicBaseTrainSetTasks = listOf<TaskITR>(
                 TaskITR(
-                        originalExpressionStructureString = "(and(or(A;not(B));or(A;not(C))))",
-                        goalExpressionStructureString = "(or(A;not(or(B;C))))",
+                        originalExpressionStructureString = "(and(implic(b;a);implic(c;a)))",
+                        goalExpressionStructureString = "(or(a;not(or(b;c))))",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase")),
                         subjectType = "logic",
                         difficulty = 1.0,
@@ -19,32 +19,65 @@ class LogicTaskSets {
                         tags = mutableSetOf(LOGIC.code)
                 ),
                 TaskITR(
-                        originalExpressionStructureString = "(or(A;and(A;B)))",
-                        goalExpressionStructureString = "(A)",
+                        originalExpressionStructureString = "(and(a;implic(b;a)))",
+                        goalExpressionStructureString = "(a)",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase")),
                         subjectType = "logic",
                         difficulty = 2.5,
                         tags = mutableSetOf(LOGIC.code, TRICK.code)
                 ),
                 TaskITR(
-                        originalExpressionStructureString = "(implic(implic(A;not(B));C))",
-                        goalExpressionStructureString = "(or(and(A;B);C))",
+                        originalExpressionStructureString = "(implic(implic(a;not(b));c))",
+                        goalExpressionStructureString = "(or(and(a;b);c))",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
                         subjectType = "logic",
                         difficulty = 2.0,
                         tags = mutableSetOf(LOGIC.code)
                 ),
                 TaskITR(
-                        originalExpressionStructureString = "(implic(and(A;B);or(not(C);B)))",
-                        goalExpressionStructureString = "(implic(A;implic(B;implic(C;B))))",
+                        originalExpressionStructureString = "(and(not(implic(or(a;b);b));alleq(1;c)))",
+                        goalExpressionStructureString = "(and(a;not(b);c))",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
                         subjectType = "logic",
                         difficulty = 3.0,
                         tags = mutableSetOf(LOGIC.code)
                 ),
                 TaskITR(
-                        originalExpressionStructureString = "(and(or(A;B;C);implic(A;or(C;D));implic(C;or(B;D));not(B);not(D)))",
+                        originalExpressionStructureString = "(and(implic(a;b);implic(b;a)))",
+                        goalExpressionStructureString = "(alleq(a;b))",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 3.0,
+                        tags = mutableSetOf(LOGIC.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(and(or(a;not(a));or(not(a);not(b));or(a;b);or(not(b);b)))",
+                        goalExpressionStructureString = "(xor(a;b))",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 3.0,
+                        tags = mutableSetOf(LOGIC.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(xor(xor(and(a;b);a);b))",
+                        goalExpressionStructureString = "(or(a;b))",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 4.0,
+                        tags = mutableSetOf(LOGIC.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(implic(and(a;b);or(not(c);b)))",
+                        goalExpressionStructureString = "(implic(a;implic(b;implic(c;b))))",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 3.0,
+                        tags = mutableSetOf(LOGIC.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(and(or(a;b;c);implic(a;or(c;d));implic(c;or(b;d));not(b);not(d)))",
                         goalType = "simplification",
+                        goalPattern = "?:0:?:?N",
                         otherGoalData = mapOf(
                                 "hiddenGoalExpressions" to listOf("(0)")
                         ),
@@ -54,8 +87,9 @@ class LogicTaskSets {
                         tags = mutableSetOf(LOGIC.code)
                 ),
                 TaskITR(
-                        originalExpressionStructureString = "(and(or(A;B);implic(not(C);not(A));implic(not(D);not(B));not(or(C;D));not(or(not(C);not(D)))))",
+                        originalExpressionStructureString = "(and(or(a;b);implic(not(c);not(a));implic(not(d);not(b));not(or(c;d));not(or(not(c);not(d)))))",
                         goalType = "simplification",
+                        goalPattern = "?:0:?:?N",
                         otherGoalData = mapOf(
                                 "hiddenGoalExpressions" to listOf("(0)")
                         ),
@@ -89,14 +123,6 @@ class LogicTaskSets {
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "RelativeComplement"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
                         subjectType = "logic",
                         difficulty = 4.5,
-                        tags = mutableSetOf(LOGIC.code)
-                ),
-                TaskITR(
-                        originalExpressionStructureString = "(implic(or(A;B);and(A;B)))",
-                        goalExpressionStructureString = "(and(not(set-(A;B));not(set-(B;A))))",
-                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "RelativeComplement"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
-                        subjectType = "logic",
-                        difficulty = 3.5,
                         tags = mutableSetOf(LOGIC.code)
                 ),
                 TaskITR(
@@ -307,6 +333,74 @@ class LogicTaskSets {
                 )
         )
 
+        val logicUsualCnfDnfMixCheckYourselfTasks = listOf<TaskITR>(
+                TaskITR(
+                        originalExpressionStructureString = "(not(or(A;B;C)))",
+                        goalPattern = "or : (and) : : : not",
+                        goalType = "DNF",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 1.5,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, CNF.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(implic(and(a;b);or(c;b)))",
+                        goalExpressionStructureString = "(implic(d;implic(b;implic(not(c);b))))",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 3.0,
+                        tags = mutableSetOf(LOGIC.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(not(and(A;implic(B;C))))",
+                        goalPattern = "and : (or : 3) : : : not",
+                        goalType = "CNF",
+                        goalNumberProperty = 3,
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 2.0,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, CNF.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(or(and(A;not(B);C;not(D));and(not(A);B;not(C);D)))",
+                        goalPattern = "and : (or) : : : not",
+                        goalType = "CNF",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 5.0,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(and(or(A;not(B);C;not(D));or(not(A);B;not(C);D)))",
+                        goalPattern = "or : (and) : : : not",
+                        goalType = "DNF",
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 5.0,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(or(and(A;not(B);not(C));and(A;not(B);C);and(not(A);B;C)))",
+                        goalPattern = "and : (or : 3) : : : not",
+                        goalType = "CNF",
+                        goalNumberProperty = 3,
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 6.0,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
+                ),
+                TaskITR(
+                        originalExpressionStructureString = "(and(or(A;B;not(C));or(A;not(B);C);or(not(A);B;C)))",
+                        goalPattern = "or : (and : 3) : : : not",
+                        goalType = "DNF",
+                        goalNumberProperty = 3,
+                        rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicBase"), RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
+                        subjectType = "logic",
+                        difficulty = 6.0,
+                        tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
+                )
+        )
+
         val logicMixCheckYourselfTasks = listOf<TaskITR>(
                 TaskITR(
                         originalExpressionStructureString = "(set-(A;set-(A;B)))",
@@ -332,7 +426,7 @@ class LogicTaskSets {
                         goalPattern = "and : (or) : : : not",
                         goalType = "CNF",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
-                        subjectType = "LogicAbsorptionLaw",
+                        subjectType = "logic",
                         difficulty = 5.0,
                         tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
                 ),
@@ -341,7 +435,7 @@ class LogicTaskSets {
                         goalPattern = "or : (and) : : : not",
                         goalType = "DNF",
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
-                        subjectType = "LogicAbsorptionLaw",
+                        subjectType = "logic",
                         difficulty = 5.0,
                         tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
                 ),
@@ -359,7 +453,7 @@ class LogicTaskSets {
                         goalType = "CNF",
                         goalNumberProperty = 3,
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
-                        subjectType = "LogicAbsorptionLaw",
+                        subjectType = "logic",
                         difficulty = 6.0,
                         tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
                 ),
@@ -369,7 +463,7 @@ class LogicTaskSets {
                         goalType = "DNF",
                         goalNumberProperty = 3,
                         rulePacks = listOf(RulePackLinkITR(rulePackCode = "LogicAbsorptionLaw")),
-                        subjectType = "LogicAbsorptionLaw",
+                        subjectType = "logic",
                         difficulty = 6.0,
                         tags = mutableSetOf(LOGIC.code, NORMAL_FORMS.code, DNF.code)
                 )
@@ -380,7 +474,8 @@ class LogicTaskSets {
                 logicPeculiarOperationsTasks +
                 logicNormalFormsTrainSetTasks +
                 logicResolutionTrainSetTasks +
-                logicMixCheckYourselfTasks
+                logicMixCheckYourselfTasks +
+                logicUsualCnfDnfMixCheckYourselfTasks
 
         val defaultLogicTaskSets = listOf(
                 TaskSetITR(
@@ -448,6 +543,17 @@ class LogicTaskSets {
                         subjectType = "logic",
                         tags = mutableSetOf(TaskSetTagCode.LOGIC.code, TaskSetTagCode.CHECK_YOURSELF.code),
                         tasks = logicMixCheckYourselfTasks.map { it.copy() }
+                ),
+                TaskSetITR(
+                        code = "LogicUsualCnfDnfMixCheckYourself",
+                        nameEn = "[Check Yourself] Mix of Logic Usual CNF DNF Transformations", nameRu = "[Проверь себя] Микс логических преобразований к КНФ ДНФ",
+                        descriptionShortEn = "Logic Expressions Transformations",
+                        descriptionShortRu = "Преобразования логических выражений",
+                        descriptionEn = "[Check Yourself] Logic Expressions Usual CNF DNF Transformations",
+                        descriptionRu = "[Проверь себя] Преобразования логических выражени, в том числе к нормальным формам КНФ ДНФ",
+                        subjectType = "logic",
+                        tags = mutableSetOf(TaskSetTagCode.LOGIC.code, TaskSetTagCode.CHECK_YOURSELF.code),
+                        tasks = logicUsualCnfDnfMixCheckYourselfTasks.map { it.copy() }
                 )
         )
     }
