@@ -9,10 +9,10 @@ plugins {
 version = "1.0"
 
 kotlin {
-    /*js {
+    js {
         browser()
         binaries.executable()
-    }*/
+    }
 
     android()
 
@@ -38,6 +38,14 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+        val jsMain by getting {
+            dependsOn(commonMain)
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
             }
         }
         val androidMain by getting {

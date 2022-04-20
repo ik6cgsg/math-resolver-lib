@@ -27,7 +27,7 @@ open class MathResolverNodeBase(
         const val multiplierDif = 0.81f
         private val multiplierMin = multiplierDif.toDouble().pow(2.0).toFloat()
         internal val defaultSymbolMap = hashMapOf(
-            OperationType.DIV to "⏤",
+            OperationType.DIV to "—",
             OperationType.PLUS to "+",
             OperationType.MINUS to "−",
             OperationType.MULT to "∙",
