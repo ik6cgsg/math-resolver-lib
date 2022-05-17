@@ -422,4 +422,14 @@ class MathResolverTests {
             "            a    "
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun testUnaryMinusWithPow() {
+        val origin = "((-(^(0;1)))"
+        val actual = MathResolver.resolveToPlain(origin, structureString = true).matrix.joinToString("\n")
+        val expected =
+            " ⎧ 1⎫\n" +
+            "-⎩0 ⎭\n"
+        assertEquals(expected, actual)
+    }
 }

@@ -34,9 +34,9 @@ open class MathResolverNodeBase(
             // set
             OperationType.SET_AND to "∧",
             OperationType.SET_OR to "∨",
-            OperationType.SET_IMPLIC to "⇒",
-            OperationType.SET_MINUS to "∖",
-            OperationType.SET_NOT to "⏤"
+            OperationType.SET_IMPLIC to "→",
+            OperationType.SET_MINUS to "\\",
+            OperationType.SET_NOT to "—"
         )
         var symbolMap = defaultSymbolMap
 
