@@ -20,6 +20,8 @@ enum class TaskType(val str: String) {
     SET("setTheory")
 }
 
+data class OperatorInfo(val value: String, val length: Int = value.length)
+
 class MathResolver {
     @ThreadLocal
     companion object {
@@ -30,27 +32,37 @@ class MathResolver {
 
         fun resolveToPlain(
             expression: ExpressionNode, style: VariableStyle = VariableStyle.DEFAULT,
-            taskType: TaskType = TaskType.DEFAULT, customSymbolMap: HashMap<OperationType, String>? = null
+            taskType: TaskType = TaskType.DEFAULT, customSymbolMap: HashMap<OperationType, OperatorInfo>? = null,
+            shrink: Boolean = false
         ): MathResolverPair {
             if (expression.toString() == "()") {
                 Logger.e("MathResolver", "TWF parsing failed")
                 return MathResolverPair(null, arrayListOf("parsing error"))
             }
             customSymbolMap?.let { MathResolverNodeBase.symbolMap = it }
-            currentViewTree = MathResolverNodeBase.getTree(expression, style, taskType)
-                ?: return MathResolverPair(null,arrayListOf("parsing error"))
-            return MathResolverPair(currentViewTree, getPlainString())
+            val tree = MathResolverNodeBase.getTree(expression, style, taskType)
+            val pair = if (tree == null) {
+                MathResolverPair(null, arrayListOf("parsing error"))
+            } else {
+                currentViewTree = tree
+                MathResolverPair(currentViewTree, getPlainString())
+            }
+            if (shrink) {
+                pair.shrink(MathResolverNodeBase.symbolMap)
+            }
+            return pair
         }
 
         fun resolveToPlain(
             expression: String, style: VariableStyle = VariableStyle.DEFAULT,
             taskType: TaskType = TaskType.DEFAULT, structureString: Boolean = false,
-            customSymbolMap: HashMap<OperationType, String>? = null
+            customSymbolMap: HashMap<OperationType, OperatorInfo>? = null,
+            shrink: Boolean = false
         ): MathResolverPair {
             val realExpression = if (!structureString) {
                 stringToExpression(expression)
             } else structureStringToExpression(expression)
-            return resolveToPlain(realExpression, style, taskType, customSymbolMap)
+            return resolveToPlain(realExpression, style, taskType, customSymbolMap, shrink)
         }
 
         fun getRule(left: ExpressionNode, right: ExpressionNode,

@@ -1,4 +1,4 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.algebra
 
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.utility.math_resolver_lib.BracketHandler

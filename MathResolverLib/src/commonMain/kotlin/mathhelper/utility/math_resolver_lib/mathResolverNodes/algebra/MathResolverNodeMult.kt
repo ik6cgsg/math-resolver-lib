@@ -1,43 +1,23 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.algebra
 
 import mathhelper.twf.expressiontree.ExpressionNode
-import mathhelper.twf.expressiontree.NodeType
 import mathhelper.utility.math_resolver_lib.*
 
-class MathResolverNodePlus(
+class MathResolverNodeMult(
     origin: ExpressionNode,
     needBrackets: Boolean = false,
     op: Operation,
     length: Int = 0, height: Int = 0
 ) : MathResolverNodeBase(origin, needBrackets, op, length, height) {
-    private var operators: ArrayList<String> = ArrayList()
-    private val symbol = symbolMap[OperationType.PLUS] ?: defaultSymbolMap[OperationType.PLUS]!!
+    private val symbol = symbolMap[OperationType.MULT] ?: defaultSymbolMap[OperationType.MULT]!!
 
     override fun setNodesFromExpression()  {
         super.setNodesFromExpression()
         var maxH = 0
         length += (origin.children.size - 1) * symbol.length
-        origin.children.forEachIndexed { i, node ->
-            lateinit var elem: MathResolverNodeBase
-            if (node.nodeType == NodeType.FUNCTION &&
-                    Operation(node.value).type == OperationType.MINUS && i != 0) {
-                operators.add(symbolMap[OperationType.MINUS] ?: defaultSymbolMap[OperationType.MINUS]!!)
-                var brackets = false
-                if (node.children[0].nodeType == NodeType.FUNCTION &&
-                    Operation(node.children[0].value).type == OperationType.PLUS) {
-                    brackets = true
-                }
-                elem = createNode(node.children[0], brackets, style, taskType)
-            } else {
-                if (i != 0) {
-                    operators.add(symbol)
-                }
-                elem = createNode(node, getNeedBrackets(node), style, taskType)
-            }
+        for (node in origin.children) {
+            val elem = createNode(node, getNeedBrackets(node), style, taskType)
             elem.setNodesFromExpression()
-            if (elem is MathResolverNodeMinus && node != origin.children[0]) {
-                elem.length -= elem.op!!.name.length
-            }
             children.add(elem)
             length += elem.length
             if (elem.height > maxH) {
@@ -72,9 +52,8 @@ class MathResolverNodePlus(
         }
         children.forEachIndexed { ind: Int, child: MathResolverNodeBase ->
             if (ind != 0) {
-                    stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, operators[0])
-                    curInd += operators[0].length
-                    operators.removeAt(0)
+                stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, symbol.value)
+                curInd += symbol.length
             }
             child.getPlainNode(stringMatrix)
             curInd += child.length

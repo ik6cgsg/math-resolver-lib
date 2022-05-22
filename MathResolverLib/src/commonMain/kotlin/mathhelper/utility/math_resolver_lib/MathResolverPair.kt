@@ -25,6 +25,18 @@ class MathResolverPair(val tree: MathResolverNodeBase?, val matrix: ArrayList<St
         return null
     }
 
+    fun shrink(symbolMap: HashMap<OperationType, OperatorInfo>) {
+        val symToShrink = symbolMap.filter { it.value.length > 1 }
+        for (i in 0 until height) {
+            symToShrink.forEach {
+                matrix[i] = matrix[i].replace(
+                    it.value.value + " ".repeat(it.value.length - 1),
+                    it.value.value
+                )
+            }
+        }
+    }
+
     private fun insideBox(x: Int, y: Int, lt: Point, rb: Point): Boolean {
         if (x >= lt.x && x <= rb.x && y >= lt.y && y <= rb.y) {
             return true

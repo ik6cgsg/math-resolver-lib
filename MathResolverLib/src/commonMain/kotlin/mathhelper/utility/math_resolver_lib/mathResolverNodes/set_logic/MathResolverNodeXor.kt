@@ -1,15 +1,15 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.set_logic
 
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.utility.math_resolver_lib.*
 
-class MathResolverSetNodeOr(
+class MathResolverNodeXor(
     origin: ExpressionNode,
     needBrackets: Boolean = false,
     op: Operation,
     length: Int = 0, height: Int = 0
 ) : MathResolverNodeBase(origin, needBrackets, op, length, height) {
-    private val symbol = symbolMap[OperationType.SET_OR] ?: defaultSymbolMap[OperationType.SET_OR]!!
+    private val symbol = symbolMap[OperationType.XOR] ?: defaultSymbolMap[OperationType.XOR]!!
 
     override fun setNodesFromExpression() {
         super.setNodesFromExpression()
@@ -46,7 +46,7 @@ class MathResolverSetNodeOr(
         }
         children.forEachIndexed { ind: Int, child: MathResolverNodeBase ->
             if (ind != 0) {
-                stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, symbol)
+                stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, symbol.value)
                 curInd += symbol.length
             }
             child.getPlainNode(stringMatrix)

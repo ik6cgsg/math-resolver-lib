@@ -1,16 +1,16 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.set_logic
 
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.twf.expressiontree.NodeType
 import mathhelper.utility.math_resolver_lib.*
 
-class MathResolverSetNodeNot(
+class MathResolverNodeNot(
     origin: ExpressionNode,
     needBrackets: Boolean = false,
     op: Operation,
     length: Int = 0, height: Int = 0
 ) : MathResolverNodeBase(origin, needBrackets, op, length, height) {
-    private val symbol = symbolMap[OperationType.SET_NOT] ?: defaultSymbolMap[OperationType.SET_NOT]!!
+    private val symbol = symbolMap[OperationType.NOT] ?: defaultSymbolMap[OperationType.NOT]!!
 
     override fun setNodesFromExpression()  {
         needBrackets = origin.children[0].nodeType == NodeType.FUNCTION
@@ -35,7 +35,7 @@ class MathResolverSetNodeNot(
             BracketHandler.setBrackets(stringMatrix, Point(leftTop.x, leftTop.y + 1), rightBottom)
         }
         val child = children[0]
-        val replacement = symbol.repeat(length)
+        val replacement = symbol.value.repeat(length)
         stringMatrix[leftTop.y] = stringMatrix[leftTop.y].replaceByIndex(leftTop.x, replacement)
         child.getPlainNode(stringMatrix)
     }

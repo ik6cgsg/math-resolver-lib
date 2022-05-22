@@ -1,4 +1,4 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.algebra
 
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.utility.math_resolver_lib.*
@@ -62,7 +62,7 @@ class MathResolverNodeDiv(
             curStr += child.height
             if (ind != children.size - 1) {
                 val len = if (needBrackets) length - 2 else length
-                val replacement = symbol.repeat(len)
+                val replacement = symbol.value.repeat(len)
                 stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, replacement)
                 curStr++
             }

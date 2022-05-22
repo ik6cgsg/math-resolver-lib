@@ -1,4 +1,4 @@
-package mathhelper.utility.math_resolver_lib.mathResolverNodes
+package mathhelper.utility.math_resolver_lib.mathResolverNodes.algebra
 
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.utility.math_resolver_lib.*
@@ -38,7 +38,7 @@ class MathResolverNodeMinus(
             BracketHandler.setBrackets(stringMatrix, leftTop, rightBottom)
         }
         val child = children[0]
-        stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, symbol)
+        stringMatrix[curStr] = stringMatrix[curStr].replaceByIndex(curInd, symbol.value)
         child.getPlainNode(stringMatrix)
     }
 }

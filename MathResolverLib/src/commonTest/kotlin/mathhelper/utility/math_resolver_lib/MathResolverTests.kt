@@ -7,7 +7,8 @@ class MathResolverTests {
     @Test
     fun test1() {
         val origin = "1+(1/2)*(cos(x)/2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "  1 cos(x)\n" +
@@ -19,7 +20,8 @@ class MathResolverTests {
     @Test
     fun test2() {
         val origin = "1 / 81278 + ((10 / 232 / 3) * (3.78 / 2)) / 2"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "       10     \n" +
@@ -35,7 +37,8 @@ class MathResolverTests {
     @Test
     fun test3() {
         val origin = "(10/232/2+3/2)/(1/32+1255673645564/33)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "       10       \n" +
@@ -53,7 +56,8 @@ class MathResolverTests {
     @Test
     fun test4() {
         val origin = "1/((113 + 4)/2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "   1   \n" +
@@ -67,7 +71,8 @@ class MathResolverTests {
     @Test
     fun test5() {
         val origin = "((1/2+((cos(x-3/2)*(tg(x)/ctg(x)))/sin(-x+(x+y)/2))*14*sin(x*y/2))/(-(-35+x/2)))^(-1/2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "                               ⎧ 1⎫\n" +
@@ -90,7 +95,8 @@ class MathResolverTests {
     @Test
     fun test6() {
         val origin = "1/2+cos(x+3/2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "1    ⎧  3⎫\n" +
@@ -102,7 +108,8 @@ class MathResolverTests {
     @Test
     fun test7() {
         val origin = "cos(x)/(1+sin(x))+cos(x)/(1+sin(x/2))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             " cos(x)   cos(x) \n" +
@@ -116,7 +123,8 @@ class MathResolverTests {
     @Test
     fun test8() {
         val origin = "(cos(x/2)^2)/(1^(1/2))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "      2\n" +
@@ -134,7 +142,8 @@ class MathResolverTests {
     @Test
     fun test9() {
         val origin = "(sin(x)/cos(x))^2^(cos(x/2)/sin((y+4)*2)+8)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "         ⎧      ⎧x⎫     ⎫\n" +
@@ -152,7 +161,8 @@ class MathResolverTests {
     @Test
     fun test10() {
         val origin = "(1+2)*3"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected = "(1+2)*3"
         assertEquals(expected, actual)
@@ -161,7 +171,8 @@ class MathResolverTests {
     @Test
     fun test11() {
         val origin = "-1^(-(2+3))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "  (-(2+3))\n" +
@@ -172,7 +183,8 @@ class MathResolverTests {
     @Test
     fun test12() {
         val origin = "tg((-2)/x)^(-(cos(x)/(1-sin(x))+cos(x)/(1+sin(x))))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "      ⎧ ⎧ cos(x)   cos(x) ⎫⎫\n" +
@@ -187,7 +199,8 @@ class MathResolverTests {
     @Test
     fun test13() {
         val origin = "cos(-a)*(-4)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected = "cos(-a)*(-4)"
         assertEquals(expected, actual)
@@ -196,7 +209,8 @@ class MathResolverTests {
     @Test
     fun test14() {
         val origin = "-x+y"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected = "-x+y"
         assertEquals(expected, actual)
@@ -205,7 +219,8 @@ class MathResolverTests {
     @Test
     fun test15() {
         val origin = "(1/2)^2"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "   2\n" +
@@ -218,7 +233,8 @@ class MathResolverTests {
     @Test
     fun test16() {
         val origin = "(1/2)*(1+(1/2)/384+4+2^4^3)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "  ⎧    1        ⎫\n" +
@@ -232,7 +248,8 @@ class MathResolverTests {
     @Test
     fun test17() {
         val origin = "1/a-(a^2-25)/(5*a)+a/5"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "   2     \n" +
@@ -245,7 +262,8 @@ class MathResolverTests {
     @Test
     fun test18() {
         val origin = "1-2-3"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "1-2-3"
@@ -255,7 +273,8 @@ class MathResolverTests {
     @Test
     fun test19() {
         val origin = "1-(2-3)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "1-(2-3)"
@@ -265,7 +284,8 @@ class MathResolverTests {
     @Test
     fun test20() {
         val origin = "cos(x)^2+cos(x^2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "      2    ⎧ 2⎫\n" +
@@ -276,7 +296,8 @@ class MathResolverTests {
     @Test
     fun test21() {
         val origin = "1/(2^2^2^2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "  1 \n" +
@@ -291,7 +312,8 @@ class MathResolverTests {
     @Test
     fun test22() {
         val origin = "1/(1*1^2*1^2^2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "    1   \n" +
@@ -305,7 +327,8 @@ class MathResolverTests {
     @Test
     fun test23() {
         val origin = "1/(1*1^2*1^2^2)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected =
             "    1   \n" +
@@ -319,7 +342,8 @@ class MathResolverTests {
     @Test
     fun fractionDegreeFailTest() {
         val origin = "(+(^(2;/(1;2));/(1;4)))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map, structureString = true).matrix.joinToString("\n")
         val expected =
             " ⎧1⎫  \n" +
@@ -333,7 +357,8 @@ class MathResolverTests {
     @Test
     fun fractionDegreeTest() {
         val origin = "(*(/(+(1;2);/(^(794;2);cos(*(2;x))));^(4;log(^(27;2);^(13;3)))))"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map, structureString = true).matrix.joinToString("\n")
         val expected =
             "                  ⎧  2⎫\n" +
@@ -351,7 +376,8 @@ class MathResolverTests {
     @Test
     fun setTest1() {
         val origin = "(A&B)&C"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
+        val map = hashMapOf(OperationType.DIV to OperatorInfo("―"),
+            OperationType.MULT to OperatorInfo("*"), OperationType.MINUS to OperatorInfo("-"))
         val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
         val expected = "(A∧B)∧C"
         assertEquals(expected, actual)
@@ -368,8 +394,7 @@ class MathResolverTests {
     @Test
     fun setTest2() {
         val origin = "A&(B&C)"
-        val map = hashMapOf(OperationType.DIV to "―", OperationType.MULT to "*", OperationType.MINUS to "-")
-        val actual = MathResolver.resolveToPlain(origin, customSymbolMap = map).matrix.joinToString("\n")
+        val actual = MathResolver.resolveToPlain(origin).matrix.joinToString("\n")
         val expected = "A∧(B∧C)"
         assertEquals(expected, actual)
     }
@@ -430,6 +455,37 @@ class MathResolverTests {
         val expected =
             " ⎧ 1⎫\n" +
             "-⎩0 ⎭\n"
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testXor() {
+        val origin = "(xor(or(a;xor(b;xor(1;1)));1))"
+        val actual = MathResolver.resolveToPlain(origin, structureString = true).matrix.joinToString("\n")
+        val expected = "(a∨(b⊕ (1⊕ 1)))⊕ 1"
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testXorWithNot() {
+        val origin = "(xor(b;not(xor(1;not(1)))))"
+        val actual = MathResolver.resolveToPlain(origin, structureString = true).matrix.joinToString("\n")
+        val expected =
+            "   ——————\n" +
+            "   ⎧   —⎫\n" +
+            "b⊕ ⎩1⊕ 1⎭"
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testXorWithNotPlusShrink() {
+        val origin = "(xor(b;not(xor(1;not(1)))))"
+        val pair = MathResolver.resolveToPlain(origin, structureString = true, shrink = true)
+        val actual =pair.matrix.joinToString("\n")
+        val expected =
+            "   ——————\n" +
+            "   ⎧   —⎫\n" +
+            "b⊕⎩1⊕1⎭"
         assertEquals(expected, actual)
     }
 }

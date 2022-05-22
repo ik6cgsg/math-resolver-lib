@@ -9,11 +9,13 @@ enum class OperationType(val names: Array<String>) {
     LOG(arrayOf("log")),
     FUNCTION(arrayOf("")),
     RIGHT_UNARY(arrayOf("")),
-    SET_AND(arrayOf("&", "and")),
-    SET_OR(arrayOf("|", "or")),
+    AND(arrayOf("&", "and")),
+    OR(arrayOf("|", "or")),
+    XOR(arrayOf("^", "xor")),
     SET_MINUS(arrayOf("\\", "set-")),
-    SET_NOT(arrayOf("!", "not")),
-    SET_IMPLIC(arrayOf("->", "implic"))
+    NOT(arrayOf("!", "not")),
+    IMPLIC(arrayOf("->", "implic")),
+    ALLEQ(arrayOf("==", "alleq"))
 }
 
 
@@ -48,11 +50,13 @@ class Operation(var name: String) {
                 in OperationType.MULT.names -> 2
                 in OperationType.MINUS.names -> 1
                 in OperationType.PLUS.names -> 0
-                // set
-                in OperationType.SET_AND.names -> 3
-                in OperationType.SET_OR.names -> 2
-                in OperationType.SET_MINUS.names -> 1
-                in OperationType.SET_IMPLIC.names -> 0
+                // set/logic
+                in OperationType.AND.names -> 4
+                in OperationType.OR.names -> 3
+                in OperationType.XOR.names -> 3
+                in OperationType.SET_MINUS.names -> 2
+                in OperationType.IMPLIC.names -> 1
+                in OperationType.ALLEQ.names -> 0
                 else -> -1
             }
         }

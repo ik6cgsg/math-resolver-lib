@@ -3,6 +3,8 @@ package mathhelper.utility.math_resolver_lib
 import mathhelper.twf.expressiontree.ExpressionNode
 import mathhelper.twf.expressiontree.NodeType
 import mathhelper.utility.math_resolver_lib.mathResolverNodes.*
+import mathhelper.utility.math_resolver_lib.mathResolverNodes.algebra.*
+import mathhelper.utility.math_resolver_lib.mathResolverNodes.set_logic.*
 import kotlin.math.pow
 import kotlin.native.concurrent.ThreadLocal
 
@@ -27,16 +29,18 @@ open class MathResolverNodeBase(
         const val multiplierDif = 0.81f
         private val multiplierMin = multiplierDif.toDouble().pow(2.0).toFloat()
         internal val defaultSymbolMap = hashMapOf(
-            OperationType.DIV to "—",
-            OperationType.PLUS to "+",
-            OperationType.MINUS to "−",
-            OperationType.MULT to "∙",
-            // set
-            OperationType.SET_AND to "∧",
-            OperationType.SET_OR to "∨",
-            OperationType.SET_IMPLIC to "→",
-            OperationType.SET_MINUS to "\\",
-            OperationType.SET_NOT to "—"
+            OperationType.DIV to OperatorInfo("—"),
+            OperationType.PLUS to OperatorInfo("+"),
+            OperationType.MINUS to OperatorInfo("−"),
+            OperationType.MULT to OperatorInfo("∙"),
+            // set/logic
+            OperationType.AND to OperatorInfo("∧"),
+            OperationType.OR to OperatorInfo("∨"),
+            OperationType.XOR to OperatorInfo("⊕", 2),
+            OperationType.IMPLIC to OperatorInfo("⇒", 2),
+            OperationType.SET_MINUS to OperatorInfo("\\"),
+            OperationType.NOT to OperatorInfo("—"),
+            OperationType.ALLEQ to OperatorInfo("≡")
         )
         var symbolMap = defaultSymbolMap
 
@@ -62,12 +66,14 @@ open class MathResolverNodeBase(
                     OperationType.LOG -> MathResolverNodeLog(expression, needBrackets, operation)
                     OperationType.FUNCTION -> MathResolverNodeFunction(expression, needBrackets, operation)
                     OperationType.MINUS -> MathResolverNodeMinus(expression, needBrackets, operation)
-                    OperationType.SET_AND -> MathResolverSetNodeAnd(expression, needBrackets, operation)
-                    OperationType.SET_OR -> MathResolverSetNodeOr(expression, needBrackets, operation)
-                    OperationType.SET_MINUS -> MathResolverSetNodeMinus(expression, needBrackets, operation)
-                    OperationType.SET_NOT -> MathResolverSetNodeNot(expression, needBrackets, operation)
-                    OperationType.SET_IMPLIC -> MathResolverSetNodeImplic(expression, needBrackets, operation)
+                    OperationType.AND -> MathResolverNodeAnd(expression, needBrackets, operation)
+                    OperationType.OR -> MathResolverNodeOr(expression, needBrackets, operation)
+                    OperationType.XOR -> MathResolverNodeXor(expression, needBrackets, operation)
+                    OperationType.SET_MINUS -> MathResolverNodeSetMinus(expression, needBrackets, operation)
+                    OperationType.NOT -> MathResolverNodeNot(expression, needBrackets, operation)
+                    OperationType.IMPLIC -> MathResolverNodeImplic(expression, needBrackets, operation)
                     OperationType.RIGHT_UNARY -> MathResolverNodeRightUnary(expression, needBrackets, operation)
+                    OperationType.ALLEQ -> MathResolverNodeAlleq(expression, needBrackets, operation)
                 }
             }
             node.style = style
